@@ -16,6 +16,7 @@ import com.zhanggm.cms.pojo.User;
 public class UserTests {
 	@Autowired
 	private UserDao userDao;
+	
 	@Test
 	public void test() {
 		List<User> userList = userDao.select(null);

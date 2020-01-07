@@ -4,45 +4,43 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.zhanggm.cms.pojo.User;
-
 public interface BaseDao<T> {
 	/**
 	 * @Title: select   
 	 * @Description: 按条件查询   
 	 * @param: @param user
 	 * @param: @return      
-	 * @return: List<User>      
+	 * @return: List<T>      
 	 * @throws
 	 */
-	List<User> select(User user);
+	List<T> select(T t);
 	/**
 	 * @Title: selectById   
 	 * @Description: 根据Id查询   
 	 * @param: @param id
 	 * @param: @return      
-	 * @return: User      
+	 * @return: T      
 	 * @throws
 	 */
-	User selectById(Integer id);
+	T selectById(Integer id);
 	/**
 	 * @Title: insert   
 	 * @Description: 新增   
-	 * @param: @param user
+	 * @param: @param t
 	 * @param: @return      
 	 * @return: int      
 	 * @throws
 	 */
-	int insert(User user);
+	int insert(T t);
 	/**
 	 * @Title: update   
 	 * @Description: 修改   
-	 * @param: @param user
+	 * @param: @param t
 	 * @param: @return      
 	 * @return: int      
 	 * @throws
 	 */
-	int update(User user);
+	int update(T t);
 	/**
 	 * @Title: delete   
 	 * @Description: 删除   
