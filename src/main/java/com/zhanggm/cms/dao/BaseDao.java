@@ -8,7 +8,7 @@ public interface BaseDao<T> {
 	/**
 	 * @Title: select   
 	 * @Description: 按条件查询   
-	 * @param: @param user
+	 * @param: @param T
 	 * @param: @return      
 	 * @return: List<T>      
 	 * @throws
