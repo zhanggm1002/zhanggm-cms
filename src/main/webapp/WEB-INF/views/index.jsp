@@ -8,6 +8,7 @@
 <link href="/public/css/bootstrap.min.css" rel="stylesheet">
 <link href="/public/css/index.css" rel="stylesheet">
 <style type="text/css">
+
 </style>
 </head>
 <body>
