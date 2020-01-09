@@ -37,6 +37,6 @@ KindEditor.ready(function(K) {});
 	</div>
 	<script src="/public/js/jquery.min.1.12.4.js"></script>
 	<script src="/public/js/bootstrap.min.js"></script>
-	<script src="/public/js/cms.js"></script>
+	<script src="/public/js/cms.js?v=1.0.0"></script>
 </body>
 </html>

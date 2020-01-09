@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +38,7 @@ public class FileController {
 	}
 	
 	@RequestMapping("uploadImg")
-	public @ResponseBody Object uploadImg(@RequestParam MultipartFile file) {
+	public @ResponseBody Object uploadImg(@RequestParam("imgFile") MultipartFile file) {
 		Map<String,Object> result = new HashMap<>();
 		result.put("error", 1);
 		if(file.getSize()>0) {
@@ -50,10 +49,11 @@ public class FileController {
 				file.transferTo(new File(fileFullName));
 				result.put("error", 0);
 				result.put("url", picPath+fileName);
+				return result;
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return result;
+		return null;
 	}
 }

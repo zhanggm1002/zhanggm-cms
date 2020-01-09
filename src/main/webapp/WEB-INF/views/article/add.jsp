@@ -69,7 +69,7 @@
 	<div class="form-group row">
 		<div class="col-sm-2">文章内容</div>
 		<div class="col-sm-10">
-			<div class="form-check">
+			<div>
 				<textarea name="content1" cols="100" rows="8" style="width:700px;height:200px;visibility:hidden;"></textarea>
 			</div>
 		</div>
