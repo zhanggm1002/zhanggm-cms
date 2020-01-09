@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.zhanggm.cms.dao.ArticleDao;
+import com.zhanggm.cms.dao.ChannelDao;
 import com.zhanggm.cms.dao.UserDao;
 import com.zhanggm.cms.pojo.User;
 
@@ -16,11 +18,16 @@ import com.zhanggm.cms.pojo.User;
 public class UserTests {
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private ArticleDao articleDao;
+	@Autowired
+	private ChannelDao channelDao;
 	
 	@Test
 	public void test() {
 		List<User> userList = userDao.select(null);
 		System.out.println(userList);
+		channelDao.select(null);
 		
 		User user = new User();
 		user.setNickname("lisi");

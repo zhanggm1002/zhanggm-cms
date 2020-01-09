@@ -37,7 +37,7 @@
 			<div class="col-8">
 				<form class="form-inline">
 					<div class="form-group mx-sm-3 mb-2">
-						<input type="text" readonly class="form-control"
+						<input type="text" class="form-control"
 							placeholder="请输入文章标题">
 					</div>
 					<button type="submit" class="btn btn-primary mb-2">查询</button>
