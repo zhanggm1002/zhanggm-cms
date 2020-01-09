@@ -7,6 +7,15 @@
 <title>个人中心</title>
 <link href="/public/css/bootstrap.min.css" rel="stylesheet">
 <link href="/public/css/index.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/public/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="/public/kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="/public/kindeditor/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="/public/kindeditor/lang/zh-CN.js"></script>
+<script charset="utf-8" src="/public/kindeditor/plugins/code/prettify.js"></script>
+<script type="text/javascript">
+KindEditor.ready(function(K) {});
+</script>
 </head>
 <body>
 	<!-- 头部导航 -->

@@ -1,5 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
+<script>
+	var editor1 = null;
+	KindEditor.ready(function(K) {
+		editor1 = K.create('textarea[name="content1"]', {
+			cssPath : '/public/kindeditor/plugins/code/prettify.css',
+			uploadJson : '/file/uploadImg',
+			fileManagerJson : '/public/kindeditor/jsp/file_manager_json.jsp',
+			allowFileManager : true,
+			afterCreate : function() {
+				var self = this;
+				K.ctrl(document, 13, function() {
+					self.sync();
+					document.forms['example'].submit();
+				});
+				K.ctrl(self.edit.doc, 13, function() {
+					self.sync();
+					document.forms['example'].submit();
+				});
+			}
+		});
+		prettyPrint();
+	});
+</script>
 <form>
 	<div class="form-group row">
 		<label for="inputEmail3" class="col-sm-2 col-form-label">文章标题</label>
@@ -10,15 +35,10 @@
 	<div class="form-group row">
 		<label for="inputPassword3" class="col-sm-2 col-form-label">文章图片</label>
 		<div class="col-sm-5">
-			<div class="input-prepend">
-				<div class="imgDive">
-					<img src="/public/img/upload.jpg" class="img-rounded" width="80px;" id="viewImg">
-					<div style="display: none;" id="imageuploadDiv" name="imageuploadDiv">
-						<input type="file" id="fileName" name="fileName" onchange=""><br> 
-						<input type="hidden" id="picture" name="picture" value="">
-					</div>
-				</div>
-			</div>
+			<jsp:include page="../common/file.jsp">
+				<jsp:param name="fieldName" value="picture"/>
+				<jsp:param name="fieldValue" value="/pic/99359061-9fe1-4d3d-9ece-5157d30564ed.jpg"/>
+			</jsp:include>
 		</div>
 	</div>
 	<div class="form-group row">
@@ -50,7 +70,7 @@
 		<div class="col-sm-2">文章内容</div>
 		<div class="col-sm-10">
 			<div class="form-check">
-				<textarea rows="3" cols=""></textarea>
+				<textarea name="content1" cols="100" rows="8" style="width:700px;height:200px;visibility:hidden;"></textarea>
 			</div>
 		</div>
 	</div>
@@ -58,13 +78,9 @@
 	<button type="button" class="btn btn-primary mb-2">保存并提交审核</button>
 </form>
 <script type="text/javascript">
-	$(".imgDive").mouseover(function () {
-		$(this).find("#imageuploadDiv").css("display","block");
-	});
-	$(".imgDive").mouseleave(function () {
-	    $(this).find("#imageuploadDiv").css("display","none");
-	});
 	function save(){
-		openPage("/article/articles");
+		var content = editor1.html();
+		console.log(content);
+		//openPage("/article/articles");
 	}
 </script>
