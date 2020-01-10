@@ -10,20 +10,7 @@
 </head>
 <body>
 	<!-- 头部导航 -->
-	<div class="header">
-		<ul class="nav">
-			<li class="nav-item" style="margin-left: 12px;"><a
-				class="navbar-brand" href="#"> <img	src="https://v4.bootcss.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-			</a></li>
-			<li class="nav-item"><a class="nav-link active" href="/">首页</a>
-			</li>
-			<li class="nav-item"><a class="nav-link" href="/user/center">个人中心</a>
-			</li>
-			<li class="nav-item"><a class="nav-link" href="/user/login">登录</a>
-			</li>
-			<li class="nav-item"><a class="nav-link disabled" href="#"	tabindex="-1" aria-disabled="true">退出</a></li>
-		</ul>
-	</div>
+	<jsp:include page="./common/user/head-top.jsp"></jsp:include>
 
 	<div class="container-fluid" style="margin-top: 6px;">
 		<div class="row offset-1">

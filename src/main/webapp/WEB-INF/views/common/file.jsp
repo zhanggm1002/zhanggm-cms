@@ -36,7 +36,7 @@ $("#fileName").on("change",function(){
 			success: function(res){
 				console.log(res);
 				$("#viewImg").attr("src",res.url);
-				$("#picture").val(res.url);
+				$("#<%=fieldName %>").val(res.url);
 			}
 		});
 	})
