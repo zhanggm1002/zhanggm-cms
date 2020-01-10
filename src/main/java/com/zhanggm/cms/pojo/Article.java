@@ -3,6 +3,12 @@ package com.zhanggm.cms.pojo;
 import java.util.Date;
 
 public class Article {
+
+	/** 所属栏目 **/
+	private String channel_name;
+	/** 所属分类 **/
+	private String category_name;
+	
 	/**  **/
 	private Integer id;
 	/** 标题 **/
@@ -44,6 +50,18 @@ public class Article {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getChannel_name() {
+		return channel_name;
+	}
+	public void setChannel_name(String channel_name) {
+		this.channel_name = channel_name;
+	}
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
 	}
 	public String getContent() {
 		return content;

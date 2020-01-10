@@ -5,7 +5,11 @@
 <mapper namespace="com.zhanggm.cms.dao.CategoryDao">
 	<select id="select" resultType="Category">
 		SELECT * FROM cms_category
-
+		<where>
+			<if test="channel_id!=null and channel_id!=''">
+				channel_id=#{channel_id}
+			</if>
+		</where>
 	</select>
 
 	<select id="selectById" resultType="Category">
