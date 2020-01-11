@@ -15,4 +15,8 @@ public class CmsMd5Util {
 		String string2md5 = Md5Util.string2MD5(str+"cmsPassword");
 		return string2md5;
 	}
+	
+	public static void main(String[] args) {
+		System.out.println(md5("admin"));
+	}
 }

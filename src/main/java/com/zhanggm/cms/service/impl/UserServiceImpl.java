@@ -1,10 +1,13 @@
 package com.zhanggm.cms.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhanggm.cms.common.CmsMd5Util;
 import com.zhanggm.cms.dao.UserDao;
 import com.zhanggm.cms.pojo.User;
@@ -48,6 +51,24 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getById(Integer id) {
 		return userDao.selectById(id);
+	}
+
+	@Override
+	public PageInfo<User> getPageInfo(User user, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<User> userList = userDao.select(user);
+		return new PageInfo<>(userList);
+	}
+
+	@Override
+	public boolean updateLocked(Integer id) {
+		User user = userDao.selectById(id);
+		if(user.getLocked()==0) {
+			user.setLocked(1);
+		}else {
+			user.setLocked(0);
+		}
+		return userDao.update(user)>0;
 	}
 	
 }

@@ -99,6 +99,8 @@ public class IndexController {
 		User user = userService.getById(article.getUser_id());
 		article.setNickname(user.getNickname());
 		model.addAttribute("article", article);
+		/** 设置文章点击量，若点击量大于20成为热点文章 **/
+		articleService.setHitsAndHot(id);
 		return "article-detail";
 	}
 }

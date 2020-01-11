@@ -104,4 +104,21 @@ public interface ArticleService {
 	 * @throws
 	 */
 	Channel getChannelByChannelId(Integer channelId);
+	/**
+	 * @Title: check   
+	 * @Description: 文章审核  
+	 * @param: @param article
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	boolean check(Article article);
+	/**
+	 * @Title: setHitsAndHot   
+	 * @Description: 设置文章点击量，若点击量大于20成为热点文章    
+	 * @param: @param id      
+	 * @return: void      
+	 * @throws
+	 */
+	void setHitsAndHot(Integer id);
 }

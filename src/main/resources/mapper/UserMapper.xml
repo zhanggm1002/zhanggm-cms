@@ -2,7 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhanggm.cms.dao.UserDao">
 	<select id="select" resultType="user">
-		SELECT * FROM cms_user
+		SELECT * FROM cms_user 
+		<where>
+			<if test="nickname!=null and nickname!=''">
+				nickname like '%${nickname}%'
+			</if>
+		</where>
 	</select>
 	
 	<select id="selectById" resultType="user">

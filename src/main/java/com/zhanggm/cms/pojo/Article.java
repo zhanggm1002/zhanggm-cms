@@ -11,6 +11,8 @@ public class Article {
 	/** 用户昵称 **/
 	private String nickname;
 	
+	private String statusStr;
+	
 	
 	/**  **/
 	private Integer id;
@@ -58,6 +60,12 @@ public class Article {
 	}
 	public String getTitle() {
 		return title;
+	}
+	public String getStatusStr() {
+		return statusStr;
+	}
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
 	}
 	public void setTitle(String title) {
 		this.title = title;

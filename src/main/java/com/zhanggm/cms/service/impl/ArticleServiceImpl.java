@@ -68,6 +68,7 @@ public class ArticleServiceImpl implements ArticleService{
 			a.setChannel_id(article.getChannel_id());
 			a.setCategory_id(article.getCategory_id());
 			a.setContent(article.getContent());
+			a.setStatus(article.getStatus());
 			articleDao.update(a);
 		}
 		return true;
@@ -83,6 +84,8 @@ public class ArticleServiceImpl implements ArticleService{
 			a.setChannel_name(channel.getName());
 			Category cate = categoryDao.selectById(a.getCategory_id());
 			a.setCategory_name(cate.getName());
+			User user = userDao.selectById(a.getUser_id());
+			a.setNickname(user.getNickname());
 		});
 		return new PageInfo<>(articleList);
 	}
@@ -136,6 +139,23 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public Channel getChannelByChannelId(Integer channelId) {
 		return channelDao.selectById(channelId);
+	}
+
+	@Override
+	public boolean check(Article article) {
+		Article article2 = articleDao.selectById(article.getId());
+		article2.setStatus(article.getStatus());
+		return articleDao.update(article2)>0;
+	}
+
+	@Override
+	public void setHitsAndHot(Integer id) {
+		Article article = articleDao.selectById(id);
+		article.setHits(article.getHits()+1);
+		if(article.getHits()>=20) {
+			article.setHot(1);
+		}
+		articleDao.update(article);
 	}
 
 }
