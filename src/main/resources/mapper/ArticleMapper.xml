@@ -8,6 +8,18 @@
 		<if test="title!=null and title!=''">
 			and title like '%${title}%'
 		</if>
+		<if test="hot!=null and hot!=''">
+			and hot=#{hot}
+		</if>
+		<if test="status!=null and status!=''">
+			and status=#{status}
+		</if>
+		<if test="channel_id!=null and channel_id!=''">
+			and channel_id=#{channel_id}
+		</if>
+		<if test="category_id!=null and category_id!=''">
+			and category_id=#{category_id}
+		</if>
 	</select>
 
 	<select id="selectById" resultType="article">

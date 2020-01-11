@@ -36,5 +36,18 @@ public class UserServiceImpl implements UserService{
 		User userInfo = userDao.selectByUsername(userName);
 		return userInfo.getLocked()==1;
 	}
+
+	@Override
+	public boolean set(User user) {
+		User userInfo = userDao.selectById(user.getId());
+		userInfo.setHeadimg(user.getHeadimg());
+		userInfo.setNickname(user.getNickname());
+		return userDao.update(userInfo)>0;
+	}
+
+	@Override
+	public User getById(Integer id) {
+		return userDao.selectById(id);
+	}
 	
 }

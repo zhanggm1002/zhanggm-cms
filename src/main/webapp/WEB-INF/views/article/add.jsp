@@ -145,6 +145,7 @@
 			contentType:false,
 			success:function(res){
 				console.log(res);
+				selectMenu('/article/articles');
 			}
 		});
 	}

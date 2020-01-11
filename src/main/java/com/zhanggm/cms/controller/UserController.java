@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -137,6 +138,22 @@ public class UserController {
 	@RequestMapping("/article")
 	public String article() {
 		return "user/article";
+	}
+	
+	@GetMapping("/set")
+	public String set(HttpSession session,Model model) {
+		User userInfo = (User)session.getAttribute(CmsConst.UserSessionKey);
+		User user = userService.getByUsername(userInfo.getUsername());
+		model.addAttribute("user", user);
+		return "user/set";
+	}
+	
+	@PostMapping("/set")
+	public @ResponseBody JsonResult setUser(HttpSession session,User user) {
+		User userInfo = (User)session.getAttribute(CmsConst.UserSessionKey);
+		user.setId(userInfo.getId());
+		userService.set(user);
+		return JsonResult.sucess();
 	}
 	
 }
