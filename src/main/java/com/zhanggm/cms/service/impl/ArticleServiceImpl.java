@@ -158,4 +158,10 @@ public class ArticleServiceImpl implements ArticleService{
 		articleDao.update(article);
 	}
 
+	@Override
+	public List<Article> getNewList(Integer pageSize) {
+		PageHelper.startPage(1, pageSize);
+		return articleDao.select(null);
+	}
+
 }

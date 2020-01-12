@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>杨元庆回应常程离职：联想不会放弃中国手机市场，会寻找时机</title>
+<title>用户登录</title>
 <link href="/public/css/bootstrap.min.css" rel="stylesheet">
 <link href="/public/css/index.css" rel="stylesheet">
 </head>

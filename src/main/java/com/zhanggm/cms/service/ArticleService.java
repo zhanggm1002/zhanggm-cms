@@ -121,4 +121,13 @@ public interface ArticleService {
 	 * @throws
 	 */
 	void setHitsAndHot(Integer id);
+	/**
+	 * @Title: getNewList   
+	 * @Description: 查询指定条数的最新文章   
+	 * @param: @param pageSize
+	 * @param: @return      
+	 * @return: List<ArticleService>      
+	 * @throws
+	 */
+	List<Article> getNewList(Integer pageSize);
 }

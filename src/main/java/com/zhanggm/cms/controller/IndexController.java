@@ -53,9 +53,11 @@ public class IndexController {
 		List<Channel> channelList = articleService.getChannelAll();
 		List<Slide> slideList = slideService.getAll();
 		PageInfo<Article> pageInfo = articleService.getHotList(pageNum,4);
+		List<Article> newArticleList = articleService.getNewList(6);
 		model.addAttribute("channelList", channelList);
 		model.addAttribute("slideList", slideList);
 		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("newArticleList", newArticleList);
 		return "index";
 	}
 	
@@ -77,11 +79,13 @@ public class IndexController {
 		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,1,pageNum);
 		List<Category> cateList = articleService.getCateListByChannelId(channelId);
 		Channel channel = articleService.getChannelByChannelId(channelId);
+		List<Article> newArticleList = articleService.getNewList(6);
 		model.addAttribute("channelList", channelList);
 		model.addAttribute("cateList", cateList);
 		model.addAttribute("slideList", slideList);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("channel", channel);
+		model.addAttribute("newArticleList", newArticleList);
 		return "index";
 	}
 	/**

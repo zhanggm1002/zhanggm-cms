@@ -7,7 +7,7 @@
 		<input type="text" class="form-control" id="title" name="title" value="${article.title }" placeholder="请输入文章标题">
 	</div>
 	<div class="form-group mx-sm-3 mb-2">
-		<select id="status" name="status">
+		<select class="form-control" id="status" name="status">
 			<option value="">请选择状态</option>
 			<option value="0" <c:if test="${article.status==0}">selected</c:if>>已发布</option>
 			<option value="1" <c:if test="${article.status==1}">selected</c:if>>审核通过</option>
@@ -43,16 +43,19 @@
 				<td>${item.category_name }</td>
 				<td>${item.status==1?'通过':item.status=='-1'?'未通过':item.status=='0'?'已发布':'禁用' }</td>
 				<td><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd"/> </td>
-				<td><input type="button" class="btn btn-primary" onclick="checkAlert(${item.id})" value="审核"></td>
+				<td>
+					<input type="button" class="btn btn-primary" onclick="viewArticle(${item.id})" value="查看">
+					<input type="button" class="btn btn-primary" onclick="checkAlert(${item.id})" value="审核">
+				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 <div class="row">
-	<div class="col-3">
+	<!-- <div class="col-3">
 		<button type="button" class="btn btn-primary mb-2" onclick="add();">添加</button>
 		<button type="button" class="btn btn-primary mb-2" onclick="delAlert();">删除</button>
-	</div>
+	</div> -->
 	<div class="col-9">
 		<jsp:include page="../common/page.jsp"></jsp:include>
 	</div>
@@ -111,5 +114,11 @@
 		$("#pageNum").val(pageNum);
 		reload($("#queryForm").serialize())
 	}
+	
+	function viewArticle(id){
+		window.open('/article/detail/'+id+'.html');
+	}
+	
+	
 	
 </script>
