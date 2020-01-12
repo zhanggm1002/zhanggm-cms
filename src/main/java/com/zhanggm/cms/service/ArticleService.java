@@ -6,7 +6,6 @@ import com.github.pagehelper.PageInfo;
 import com.zhanggm.cms.pojo.Article;
 import com.zhanggm.cms.pojo.Category;
 import com.zhanggm.cms.pojo.Channel;
-import com.zhanggm.cms.pojo.Slide;
 
 public interface ArticleService {
 	/**
