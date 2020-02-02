@@ -3,6 +3,10 @@ package com.zhanggm.cms.pojo;
 import java.util.Date;
 
 public class Comment {
+	/** 用户昵称 **/
+	private String nickname;
+	private String headimg;
+	
 	/**  **/
 	private Integer id;
 	/** 文章Id **/
@@ -13,6 +17,20 @@ public class Comment {
 	private String content;
 	/** 评论时间 **/
 	private Date created;
+	
+	
+	public String getHeadimg() {
+		return headimg;
+	}
+	public void setHeadimg(String headimg) {
+		this.headimg = headimg;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public Integer getId() {
 		return id;
 	}

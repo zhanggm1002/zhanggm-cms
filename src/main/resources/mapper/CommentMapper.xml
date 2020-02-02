@@ -5,7 +5,7 @@
 <mapper namespace="com.zhanggm.cms.dao.CommentDao">
 	<select id="select" resultType="Comment">
 		SELECT * FROM cms_comment
-
+	    order by id desc
 	</select>
 
 	<select id="selectById" resultType="Comment">

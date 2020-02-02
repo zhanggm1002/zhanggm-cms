@@ -7,14 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
 import com.zhanggm.cms.pojo.Article;
 import com.zhanggm.cms.pojo.Category;
 import com.zhanggm.cms.pojo.Channel;
+import com.zhanggm.cms.pojo.Comment;
 import com.zhanggm.cms.pojo.Slide;
 import com.zhanggm.cms.pojo.User;
 import com.zhanggm.cms.service.ArticleService;
+import com.zhanggm.cms.service.CommentService;
 import com.zhanggm.cms.service.SlideService;
 import com.zhanggm.cms.service.UserService;
 
@@ -26,6 +29,8 @@ public class IndexController {
 	private SlideService slideService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CommentService commentService;
 	/**
 	 * @Title: index   
 	 * @Description: 首页   
@@ -98,7 +103,7 @@ public class IndexController {
 	 * @throws
 	 */
 	@RequestMapping("/article/detail/{id}.html")
-	public String articleDetail(@PathVariable Integer id,Model model) {
+	public String articleDetail(@PathVariable Integer id,@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,Model model) {
 		Article article = articleService.getById(id);
 		User user = userService.getById(article.getUser_id());
 		article.setNickname(user.getNickname());
@@ -108,6 +113,9 @@ public class IndexController {
 		model.addAttribute("relArticelList", relArticelList);
 		/** 设置文章点击量，若点击量大于20成为热点文章 **/
 		articleService.setHitsAndHot(id);
+		/** 评论列表 **/
+		PageInfo<Comment> commentPageInfo = commentService.getPageInfo(article.getId(), pageNum, 3);
+		model.addAttribute("pageInfo", commentPageInfo);
 		return "article-detail";
 	}
 	
