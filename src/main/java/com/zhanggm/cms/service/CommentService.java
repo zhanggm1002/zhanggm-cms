@@ -24,4 +24,12 @@ public interface CommentService {
 	 * @throws
 	 */
 	PageInfo<Comment> getPageInfo(Integer articleId,Integer pageNo,Integer pageSize);
+	/**
+	 * @Title: getRandomComment   
+	 * @Description: 获取随机的评论对象   
+	 * @param: @return      
+	 * @return: Comment      
+	 * @throws
+	 */
+	Comment getRandomComment();
 }

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 
-import com.sun.tools.classfile.Opcode.Set;
-
 public class Comment implements Serializable{
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   

@@ -14,6 +14,10 @@ import com.zhanggm.cms.pojo.Comment;
 import com.zhanggm.cms.pojo.User;
 import com.zhanggm.cms.service.ArticleService;
 import com.zhanggm.cms.service.CommentService;
+import com.zhanggm.cms.service.UserService;
+import com.zhanggm.common.utils.DateUtil;
+import com.zhanggm.common.utils.RandomUtil;
+import com.zhanggm.common.utils.StringUtil;
 @Service
 public class CommentServiceImpl implements CommentService{
 	
@@ -23,6 +27,8 @@ public class CommentServiceImpl implements CommentService{
 	private UserDao userDao;
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public boolean add(Comment comment) {
@@ -45,6 +51,28 @@ public class CommentServiceImpl implements CommentService{
 			c.setHeadimg(user.getHeadimg());
 		});
 		return new PageInfo<>(commentList);
+	}
+
+	@Override
+	public Comment getRandomComment() {
+		Comment comment = new Comment();
+		/** 文章Id **/
+		Integer randomArticleId = articleService.getRandomArticleId();
+		comment.setArticleId(randomArticleId);
+		/** 用户Id **/
+		Integer randomUserId = userService.getRandomUserId();
+		comment.setUserId(randomUserId);
+		/** 评论内容 **/
+		int random = RandomUtil.random(10, 200);
+		String randomChineseString = StringUtil.randomChineseString(random);
+		comment.setContent(randomChineseString);
+		/** 评论时间 **/
+		System.out.println(randomChineseString);
+		Date date1 = DateUtil.parse("2020-01-01 00:00:00", "yyyy-MM-dd HH:mm:ss");
+		Date date2 = new Date();
+		Date randomDate = DateUtil.getRandomDate(date1, date2);
+		comment.setCreated(randomDate);
+		return comment;
 	}
 
 }

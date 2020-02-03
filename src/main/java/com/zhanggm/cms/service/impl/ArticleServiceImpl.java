@@ -17,6 +17,7 @@ import com.zhanggm.cms.pojo.Category;
 import com.zhanggm.cms.pojo.Channel;
 import com.zhanggm.cms.pojo.User;
 import com.zhanggm.cms.service.ArticleService;
+import com.zhanggm.common.utils.RandomUtil;
 @Service
 public class ArticleServiceImpl implements ArticleService{
 	@Autowired
@@ -182,6 +183,13 @@ public class ArticleServiceImpl implements ArticleService{
 		Article article = articleDao.selectById(id);
 		article.setCommentCnt(article.getCommentCnt()+1);
 		return articleDao.update(article)>0;
+	}
+
+	@Override
+	public Integer getRandomArticleId() {
+		List<Integer> articleIdList = articleDao.selectIdList();
+		int random = RandomUtil.random(0, articleIdList.size()-1);
+		return articleIdList.get(random);
 	}
 
 }

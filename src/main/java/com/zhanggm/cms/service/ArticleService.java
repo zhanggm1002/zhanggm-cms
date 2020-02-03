@@ -151,4 +151,12 @@ public interface ArticleService {
 	 * @throws
 	 */
 	boolean updateCommentCnt(Integer id);
+	/**
+	 * @Title: getRandomArticleId   
+	 * @Description: 获取随机文章Id   
+	 * @param: @return      
+	 * @return: Integer      
+	 * @throws
+	 */
+	Integer getRandomArticleId();
 }
