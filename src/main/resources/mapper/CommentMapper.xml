@@ -5,6 +5,11 @@
 <mapper namespace="com.zhanggm.cms.dao.CommentDao">
 	<select id="select" resultType="Comment">
 		SELECT * FROM cms_comment
+		<where>
+			<if test="articleId!=null">
+				articleId=#{articleId}
+			</if>
+		</where>
 	    order by id desc
 	</select>
 

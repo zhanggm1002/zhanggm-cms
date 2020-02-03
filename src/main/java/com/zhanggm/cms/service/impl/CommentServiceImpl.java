@@ -12,6 +12,7 @@ import com.zhanggm.cms.dao.CommentDao;
 import com.zhanggm.cms.dao.UserDao;
 import com.zhanggm.cms.pojo.Comment;
 import com.zhanggm.cms.pojo.User;
+import com.zhanggm.cms.service.ArticleService;
 import com.zhanggm.cms.service.CommentService;
 @Service
 public class CommentServiceImpl implements CommentService{
@@ -20,11 +21,16 @@ public class CommentServiceImpl implements CommentService{
 	private CommentDao commentDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private ArticleService articleService;
 
 	@Override
 	public boolean add(Comment comment) {
 		comment.setCreated(new Date());
-		return commentDao.insert(comment)>0;
+		boolean result = commentDao.insert(comment)>0;
+		/** 修改文章的评论数 **/
+		boolean result2 = articleService.updateCommentCnt(comment.getArticleId());
+		return result && result2;
 	}
 
 	@Override

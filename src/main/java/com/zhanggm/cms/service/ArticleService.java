@@ -142,4 +142,13 @@ public interface ArticleService {
 	 * @throws
 	 */
 	List<Article> getRelArticelList(Integer channelId,Integer cateId,Integer articleId,Integer pageSize);
+	/**
+	 * @Title: updateCommentCnt   
+	 * @Description: 修改文章的评论数量   
+	 * @param: @param id
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	boolean updateCommentCnt(Integer id);
 }

@@ -1,8 +1,16 @@
 package com.zhanggm.cms.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 
-public class Comment {
+import com.sun.tools.classfile.Opcode.Set;
+
+public class Comment implements Serializable{
+	/**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */
+	private static final long serialVersionUID = 1L;
 	/** 用户昵称 **/
 	private String nickname;
 	private String headimg;
@@ -64,8 +72,46 @@ public class Comment {
 	}
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", articleId=" + articleId + ", userId=" + userId + ", content=" + content
-				+ ", created=" + created + "]";
+		return "Comment [nickname=" + nickname + ", headimg=" + headimg + ", id=" + id + ", articleId=" + articleId
+				+ ", userId=" + userId + ", content=" + content + ", created=" + created + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Comment other = (Comment) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
+	public static void main(String[] args) {
+		Comment comment = new Comment();
+		comment.setId(1);
+		Comment comment2 = new Comment();
+		comment2.setId(1);
+		System.out.println(comment.equals(comment2));
+		
+		java.util.Set<Comment> set = new HashSet<>();
+		set.add(comment);
+		set.add(comment2);
+		System.out.println(set);
 	}
 	
 	

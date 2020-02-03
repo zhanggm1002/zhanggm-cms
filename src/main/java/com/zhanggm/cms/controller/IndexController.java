@@ -114,7 +114,7 @@ public class IndexController {
 		/** 设置文章点击量，若点击量大于20成为热点文章 **/
 		articleService.setHitsAndHot(id);
 		/** 评论列表 **/
-		PageInfo<Comment> commentPageInfo = commentService.getPageInfo(article.getId(), pageNum, 3);
+		PageInfo<Comment> commentPageInfo = commentService.getPageInfo(article.getId(), pageNum, 10);
 		model.addAttribute("pageInfo", commentPageInfo);
 		return "article-detail";
 	}

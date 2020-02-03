@@ -170,11 +170,18 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> getRelArticelList(Integer channelId, Integer cateId, Integer articleId, Integer pageSize) {
 		Article article = new Article();
 		article.setChannel_id(channelId);
-		article.setCategory_id(cateId);
+//		article.setCategory_id(cateId);
 		article.setId(articleId);
 		PageHelper.startPage(1, pageSize);
 		List<Article> articleList = articleDao.select(article);
 		return articleList;
+	}
+
+	@Override
+	public boolean updateCommentCnt(Integer id) {
+		Article article = articleDao.selectById(id);
+		article.setCommentCnt(article.getCommentCnt()+1);
+		return articleDao.update(article)>0;
 	}
 
 }
