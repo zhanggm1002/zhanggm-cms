@@ -1,5 +1,7 @@
 package com.zhanggm.cms.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 import com.zhanggm.cms.pojo.Link;
 
@@ -32,4 +34,12 @@ public interface LinkService {
 	 * @throws
 	 */
 	Link getById(Integer id);
+	/**
+	 * @Title: getLinkListAll   
+	 * @Description: 查询所有友情链接   
+	 * @param: @return      
+	 * @return: List<Link>      
+	 * @throws
+	 */
+	List<Link> getLinkListAll();
 }

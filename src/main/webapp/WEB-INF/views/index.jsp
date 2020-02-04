@@ -39,7 +39,7 @@
 						<div class="carousel-inner">
 							<c:forEach items="${slideList }" var="item" varStatus="status">
 								<div class="carousel-item <c:if test="${status.index==0 }">active</c:if>">
-									<a href="${item.url }" target="_blank"><img src="${item.picture }" height="386px;" class="d-block w-100" alt="..."></a>
+									<a href="${item.url }" target="_blank"><img src="/pic/${item.picture }" height="386px;" class="d-block w-100" alt="..."></a>
 								</div>
 							</c:forEach>
 						</div>
@@ -122,6 +122,14 @@
 				</div>
 			</div>
 
+		</div>
+		<div class="col-10 offset-1 breadcrumb" style="margin-bottom: 200px;">
+			友情链接：
+			<c:forEach items="${linkList }" var="item">
+				<div style="margin-left: 20px;">
+					<a href="${item.url }" target="_blank">${item.text }</a>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<script src="/public/js/jquery.min.1.12.4.js"></script>

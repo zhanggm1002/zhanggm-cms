@@ -5,6 +5,11 @@
 <mapper namespace="com.zhanggm.cms.dao.LinkDao">
 	<select id="select" resultType="Link">
 		SELECT * FROM cms_link
+		<where>
+			<if test="text!=null and text!=''">
+				`text` like '%${text}%'
+			</if>
+		</where>
 	</select>
 
 	<select id="selectById" resultType="Link">

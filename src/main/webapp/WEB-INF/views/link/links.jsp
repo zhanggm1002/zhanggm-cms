@@ -42,26 +42,6 @@
 </div>
 <div class="alert alert-success" role="alert" style="display: none"></div>
 
-<div class="modal" tabindex="-1" role="dialog" id="deleteModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">确认框</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>你确认删除文章吗？</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" onclick="del();">确认删除</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script type="text/javascript" src="/public/js/checkbox.js" ></script>
 
 <script type="text/javascript">

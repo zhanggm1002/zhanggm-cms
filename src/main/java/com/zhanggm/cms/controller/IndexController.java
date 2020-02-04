@@ -14,10 +14,12 @@ import com.zhanggm.cms.pojo.Article;
 import com.zhanggm.cms.pojo.Category;
 import com.zhanggm.cms.pojo.Channel;
 import com.zhanggm.cms.pojo.Comment;
+import com.zhanggm.cms.pojo.Link;
 import com.zhanggm.cms.pojo.Slide;
 import com.zhanggm.cms.pojo.User;
 import com.zhanggm.cms.service.ArticleService;
 import com.zhanggm.cms.service.CommentService;
+import com.zhanggm.cms.service.LinkService;
 import com.zhanggm.cms.service.SlideService;
 import com.zhanggm.cms.service.UserService;
 
@@ -31,6 +33,9 @@ public class IndexController {
 	private UserService userService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private LinkService linkService;
+	
 	/**
 	 * @Title: index   
 	 * @Description: 首页   
@@ -55,14 +60,21 @@ public class IndexController {
 	 */
 	@RequestMapping("/hot/{pageNum}.html")
 	public String hot(Model model,@PathVariable Integer pageNum) {
+		/** 频道 **/
 		List<Channel> channelList = articleService.getChannelAll();
-		List<Slide> slideList = slideService.getAll();
-		PageInfo<Article> pageInfo = articleService.getHotList(pageNum,4);
-		List<Article> newArticleList = articleService.getNewList(6);
 		model.addAttribute("channelList", channelList);
+		/** 焦点图 **/
+		List<Slide> slideList = slideService.getAll();
 		model.addAttribute("slideList", slideList);
+		/** 热点文章 **/
+		PageInfo<Article> pageInfo = articleService.getHotList(pageNum,4);
 		model.addAttribute("pageInfo", pageInfo);
+		/** 最新文章 **/
+		List<Article> newArticleList = articleService.getNewList(6);
 		model.addAttribute("newArticleList", newArticleList);
+		/** 友情链接 **/
+		List<Link> linkList = linkService.getLinkListAll();
+		model.addAttribute("linkList", linkList);
 		return "index";
 	}
 	
@@ -81,7 +93,7 @@ public class IndexController {
 	public String channel(Model model,@PathVariable Integer channelId,@PathVariable Integer cateId,@PathVariable Integer pageNum) {
 		List<Channel> channelList = articleService.getChannelAll();
 		List<Slide> slideList = slideService.getAll();
-		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,pageNum,2);
+		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,pageNum,6);
 		List<Category> cateList = articleService.getCateListByChannelId(channelId);
 		Channel channel = articleService.getChannelByChannelId(channelId);
 		List<Article> newArticleList = articleService.getNewList(6);
@@ -91,6 +103,9 @@ public class IndexController {
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("channel", channel);
 		model.addAttribute("newArticleList", newArticleList);
+		/** 友情链接 **/
+		List<Link> linkList = linkService.getLinkListAll();
+		model.addAttribute("linkList", linkList);
 		return "index";
 	}
 	/**
