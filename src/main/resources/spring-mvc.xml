@@ -39,6 +39,7 @@
 			<mvc:exclude-mapping path="/**/*.html"/>
 			<mvc:exclude-mapping path="/public/**"/>
 			<mvc:exclude-mapping path="/comment/**"/>
+			<mvc:exclude-mapping path="/link/links"/>
 			<bean class="com.zhanggm.cms.common.UserAuthInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
@@ -46,6 +47,7 @@
 			<mvc:exclude-mapping path="/admin/"/>
 			<mvc:exclude-mapping path="/admin/login"/>
 			<mvc:exclude-mapping path="/admin/signOut"/>
+			<mvc:exclude-mapping path="/admin/link/links"/>
 			<bean class="com.zhanggm.cms.common.UserAdminAuthInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
