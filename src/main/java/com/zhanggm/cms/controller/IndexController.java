@@ -3,6 +3,7 @@ package com.zhanggm.cms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,8 @@ public class IndexController {
 	private CommentService commentService;
 	@Autowired
 	private LinkService linkService;
+	@Autowired
+	private RedisTemplate redisTemplate;
 	
 	/**
 	 * @Title: index   
