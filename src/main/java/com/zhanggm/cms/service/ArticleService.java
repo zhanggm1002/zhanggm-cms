@@ -159,4 +159,13 @@ public interface ArticleService {
 	 * @throws
 	 */
 	Integer getRandomArticleId();
+	/**
+	 * @Title: getNewPicList   
+	 * @Description: 最新图片   
+	 * @param: @param i
+	 * @param: @return      
+	 * @return: List<Article>      
+	 * @throws
+	 */
+	List<Article> getNewPicList(int pageSize);
 }

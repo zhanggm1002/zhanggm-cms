@@ -56,6 +56,7 @@ public class ArticleServiceImpl implements ArticleService{
 			article.setDeleted(0);
 			article.setTousuCnt(0);
 			article.setCommentCnt(0);
+//			article.setType(0);
 			article.setCreated(new Date());
 			article.setUpdated(new Date());
 			/** 新增 **/
@@ -111,6 +112,7 @@ public class ArticleServiceImpl implements ArticleService{
 		Article article = new Article();
 		article.setStatus(1);
 		article.setHot(1);
+		article.setType(0);
 		PageHelper.startPage(pageNum, pageSize);
 		List<Article> articleList = articleDao.select(article);
 		articleList.forEach(a->{
@@ -125,6 +127,7 @@ public class ArticleServiceImpl implements ArticleService{
 		Article article = new Article();
 		article.setStatus(1);
 		article.setChannel_id(channelId);
+		article.setType(0);
 		if(cateId>0) {
 			article.setCategory_id(cateId);
 		}
@@ -164,6 +167,7 @@ public class ArticleServiceImpl implements ArticleService{
 		PageHelper.startPage(1, pageSize);
 		Article article = new Article();
 		article.setStatus(1);
+		article.setType(0);
 		return articleDao.select(article);
 	}
 
@@ -173,6 +177,7 @@ public class ArticleServiceImpl implements ArticleService{
 		article.setChannel_id(channelId);
 //		article.setCategory_id(cateId);
 		article.setId(articleId);
+		article.setType(0);
 		PageHelper.startPage(1, pageSize);
 		List<Article> articleList = articleDao.select(article);
 		return articleList;
@@ -190,6 +195,14 @@ public class ArticleServiceImpl implements ArticleService{
 		List<Integer> articleIdList = articleDao.selectIdList();
 		int random = RandomUtil.random(0, articleIdList.size()-1);
 		return articleIdList.get(random);
+	}
+
+	@Override
+	public List<Article> getNewPicList(int pageSize) {
+		PageHelper.startPage(1, pageSize);
+		Article article = new Article();
+		article.setType(1);
+		return articleDao.select(article);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.zhanggm.cms.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import com.zhanggm.cms.common.CmsConst;
 import com.zhanggm.cms.common.JsonResult;
 import com.zhanggm.cms.pojo.Article;
@@ -46,6 +49,23 @@ public class ArticleController {
 			model.addAttribute("cateList", cateList);
 		}
 		return "article/add";
+	}
+	@GetMapping("/add/pic")
+	public String toAddPic(Integer id,Model model) {
+		List<Channel> channelList = articleService.getChannelAll();
+		model.addAttribute("channelList", channelList);
+		if(id!=null) {
+			Article article = articleService.getById(id);
+			List<Category> cateList = articleService.getCateListByChannelId(article.getChannel_id());
+			model.addAttribute("article", article);
+			model.addAttribute("cateList", cateList);
+			/** 处理图片 **/
+			String content = article.getContent();
+			Gson gson = new Gson();
+			List<HashMap<String,Object>> fromJson = gson.fromJson(content,ArrayList.class);
+			model.addAttribute("pics", fromJson);
+		}
+		return "article/addPic";
 	}
 	/**
 	 * @Title: save   

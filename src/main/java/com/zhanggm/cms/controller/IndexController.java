@@ -1,6 +1,11 @@
 package com.zhanggm.cms.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
+import com.sun.tools.classfile.Annotation.element_value;
 import com.zhanggm.cms.pojo.Article;
 import com.zhanggm.cms.pojo.Category;
 import com.zhanggm.cms.pojo.Channel;
@@ -35,6 +42,8 @@ public class IndexController {
 	private CommentService commentService;
 	@Autowired
 	private LinkService linkService;
+	/** 定义线程池 **/
+	private ExecutorService executorService = Executors.newFixedThreadPool(5);
 	
 	/**
 	 * @Title: index   
@@ -60,11 +69,28 @@ public class IndexController {
 	 */
 	@RequestMapping("/hot/{pageNum}.html")
 	public String hot(Model model,@PathVariable Integer pageNum) {
+		/** 计数器  **/
+		CountDownLatch countDownLatch = new CountDownLatch(2);
 		/** 频道 **/
-		List<Channel> channelList = articleService.getChannelAll();
+		List<Channel> channelList = new ArrayList<Channel>();
+		/** 新线程查询数据  **/
+		executorService.execute(()->{
+			List<Channel> list = articleService.getChannelAll();
+			channelList.addAll(list);
+			/** 计数减1  **/
+			countDownLatch.countDown();
+		});
+		
 		model.addAttribute("channelList", channelList);
 		/** 焦点图 **/
-		List<Slide> slideList = slideService.getAll();
+		List<Slide> slideList = new ArrayList<>();
+		/** 新线程查询数据  **/
+		executorService.execute(()->{
+			List<Slide> list = slideService.getAll();
+			slideList.addAll(list);
+			/** 计数减1  **/
+			countDownLatch.countDown();
+		});
 		model.addAttribute("slideList", slideList);
 		/** 热点文章 **/
 		PageInfo<Article> pageInfo = articleService.getHotList(pageNum,4);
@@ -75,6 +101,16 @@ public class IndexController {
 		/** 友情链接 **/
 		List<Link> linkList = linkService.getLinkListAll();
 		model.addAttribute("linkList", linkList);
+		/** 最新图片 **/
+		List<Article> newPicList = articleService.getNewPicList(6);
+		model.addAttribute("newPicList", newPicList);
+		/** 等待线程都执行完成  **/
+		try {
+			countDownLatch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		return "index";
 	}
 	
@@ -131,6 +167,14 @@ public class IndexController {
 		/** 评论列表 **/
 		PageInfo<Comment> commentPageInfo = commentService.getPageInfo(article.getId(), pageNum, 10);
 		model.addAttribute("pageInfo", commentPageInfo);
+		
+		/** 处理图片 **/
+		if(article.getType()==1) {
+			String content = article.getContent();
+			Gson gson = new Gson();
+			List<HashMap<String,Object>> fromJson = gson.fromJson(content,ArrayList.class);
+			model.addAttribute("pics", fromJson);
+		}
 		return "article-detail";
 	}
 	

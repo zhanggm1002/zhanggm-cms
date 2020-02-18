@@ -20,6 +20,8 @@ public class Article {
 	private String title;
 	/** 文章内容 **/
 	private String content;
+	/** 文章类型 **/
+	private Integer type;
 	/** 标题图片 **/
 	private String picture;
 	/** 所属栏目 **/
@@ -57,6 +59,12 @@ public class Article {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
 	}
 	public String getTitle() {
 		return title;

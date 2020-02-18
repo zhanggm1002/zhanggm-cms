@@ -14,6 +14,9 @@
 		<if test="id!=null and id!=''">
 			and id!=#{id}
 		</if>
+		<if test="type!=null">
+			and type=#{type}
+		</if>
 		<if test="status!=null and status!=''">
 			and status=#{status}
 		</if>
@@ -41,15 +44,15 @@
 	<update id="update">
 		UPDATE cms_article
 		SET
-		title=#{title},content=#{content},picture=#{picture},channel_id=#{channel_id},category_id=#{category_id},user_id=#{user_id},hits=#{hits},hot=#{hot},status=#{status},deleted=#{deleted},created=#{created},updated=#{updated},commentCnt=#{commentCnt},tousuCnt=#{tousuCnt}
+		title=#{title},type=#{type},content=#{content},picture=#{picture},channel_id=#{channel_id},category_id=#{category_id},user_id=#{user_id},hits=#{hits},hot=#{hot},status=#{status},deleted=#{deleted},created=#{created},updated=#{updated},commentCnt=#{commentCnt},tousuCnt=#{tousuCnt}
 		WHERE id=#{id}
 
 	</update>
 
 	<insert id="insert">
 		INSERT INTO
-		cms_article(title,content,picture,channel_id,category_id,user_id,hits,hot,status,deleted,created,updated,commentCnt,tousuCnt)VALUES
-		(#{title},#{content},#{picture},#{channel_id},#{category_id},#{user_id},#{hits},#{hot},#{status},#{deleted},#{created},#{updated},#{commentCnt},#{tousuCnt})
+		cms_article(title,type,content,picture,channel_id,category_id,user_id,hits,hot,status,deleted,created,updated,commentCnt,tousuCnt)VALUES
+		(#{title},#{type},#{content},#{picture},#{channel_id},#{category_id},#{user_id},#{hits},#{hot},#{status},#{deleted},#{created},#{updated},#{commentCnt},#{tousuCnt})
 
 	</insert>
 

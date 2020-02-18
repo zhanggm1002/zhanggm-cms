@@ -27,12 +27,35 @@
 	</div>
 	<div class="container-fluid" style="margin-top: 6px;">
 		<div class="row offset-1">
-			<div class="col-6">
+			<div class="col-10">
 				<h1>${article.title }</h1>
 				<h3 style="color: #777;">${article.nickname }    发布时间：<fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd日"/></h3>
 				<div>
 					<div class="article-content">
-						${article.content }
+						<c:if test="${article.type==0 }">
+							${article.content }
+						</c:if>
+						<c:if test="${article.type==1 }">
+							<div id="carouselExampleControls" class="carousel slide"
+								data-ride="carousel">
+								<div class="carousel-inner">
+									<c:forEach items="${pics }" var="item" varStatus="status">
+										<div class="carousel-item <c:if test="${status.index==0 }">active</c:if>">
+											<img src="${item.src }" height="386px;" class="d-block w-100" alt="...">
+										</div>
+									</c:forEach>
+								</div>
+								<a class="carousel-control-prev" href="#carouselExampleControls"
+									role="button" data-slide="prev"> <span
+									class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+									class="sr-only">Previous</span>
+								</a> <a class="carousel-control-next" href="#carouselExampleControls"
+									role="button" data-slide="next"> <span
+									class="carousel-control-next-icon" aria-hidden="true"></span> <span
+									class="sr-only">Next</span>
+								</a>
+							</div>
+						</c:if>
 					</div>
 				</div>
 				<form id="commentForm">
@@ -80,7 +103,7 @@
 				</form>
 			</div>
 			
-			<div class="col-3">
+			<%-- <div class="col-3">
 				<div class="right">
 					<div>相关文章</div>
 					<ul class="list-unstyled">
@@ -94,7 +117,7 @@
 						</c:forEach>
 					</ul>
 				</div>
-			</div>
+			</div> --%>
 
 		</div>
 	</div>

@@ -29,7 +29,12 @@
 				<td>${item.channel_name }</td>
 				<td>${item.category_name }</td>
 				<td><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd"/> </td>
-				<td><input type="button" class="btn btn-primary" onclick="modify(${item.id})" value="编辑"></td>
+				<c:if test="${item.type==0 }">
+					<td><input type="button" class="btn btn-primary" onclick="modify(${item.id})" value="编辑"></td>
+				</c:if>
+				<c:if test="${item.type==1 }">
+					<td><input type="button" class="btn btn-primary" onclick="modify2(${item.id})" value="编辑"></td>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -73,6 +78,10 @@
 	}
 	function modify(id){
 		openPage('/article/add?id='+id);
+	}
+	
+	function modify2(id){
+		openPage('/article/add/pic?id='+id);
 	}
 	
 	function delAlert(){

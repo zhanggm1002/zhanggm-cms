@@ -75,19 +75,50 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		<div class="col-sm-2">文章内容</div>
+		<div class="col-sm-2">上传图片</div>
 		<div class="col-sm-10">
 			<div>
-				<textarea name="content1" cols="100" rows="8" style="width:700px;height:200px;visibility:hidden;">${article.content }</textarea>
+				<div class="input-prepend" id="pics">
+					<c:forEach items="${pics }" var="item">
+						<div>
+						<div class="imgDive">
+							<img src="${item.src }" class="img-rounded" width="80px;">
+						</div>
+						<input type="text" value="${item.desc }" placeholder="图片描述">
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
+		<input type="file" placeholder="" id="addFileName" name="addFileName"><br> 
 	</div>
+	
+	
 	<button type="button" class="btn btn-primary mb-2" onclick="save(2);">保存</button>
 	<button type="button" class="btn btn-primary mb-2" onclick="save(0);">保存并提交审核</button>
 	<div class="alert alert-success" role="alert" style="display: none"></div>
 </form>
 
 <script type="text/javascript">
+	$("#addFileName").on("change",function(){
+		console.log(this.files[0]);
+		var formData = new FormData();
+		formData.append("file",this.files[0]);
+		$.ajax({
+			url:"/file/upload",
+			type:"post",
+			data:formData,
+			processData:false,
+			contentType:false,
+			success: function(res){
+				console.log(res);
+				var html = '<div class="imgDive"><img src="'+res.url+'" class="img-rounded" width="80px;"><div><input type="text" placeholder="图片描述"></div></div>';
+				$("#pics").append(html);
+			
+			}
+		});
+	})
+
 	function changeCate(){
 		var channelId = $("#channel_id").val();
 		$.get("/article/getCateListByChannelId",{channelId:channelId},function(res){
@@ -102,6 +133,21 @@
 	}
 	
 	function save(status){
+		var picList = [];
+		var descArr = $("#pics input");
+		$("#pics img").each(function(index,value){
+			//console.log($(value).attr("src"));
+			//console.log($(descArr[index]).val());
+			var obj = {};
+			obj.src = $(value).attr("src");
+			obj.desc = $(descArr[index]).val();
+			picList[picList.length] = obj;
+		});
+		if(picList.length==0){
+			$(".alert").html("请选择图片");
+			$(".alert").show();
+			return;
+		}
 		var title = $("#title").val();
 		var picture = $("#picture").val();
 		var channel_id = $("#channel_id").val();
@@ -126,16 +172,12 @@
 			$(".alert").show();
 			return;
 		}
-		var content = editor1.html();
-		if(content==null || content==""){
-			$(".alert").html("内容不能为空");
-			$(".alert").show();
-			return;
-		}
+		var content = JSON.stringify(picList);//editor1.html();
 		$(".alert").hide();
 		/** 提交数据 **/
 		var formData = new FormData($("#saveForm")[0]);
 		formData.append("content",content);
+		formData.append("type",1);
 		formData.append("status",status);
 		$.ajax({
 			url:"/article/save",
