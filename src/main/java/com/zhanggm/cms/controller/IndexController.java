@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
-import com.sun.tools.classfile.Annotation.element_value;
 import com.zhanggm.cms.pojo.Article;
 import com.zhanggm.cms.pojo.Category;
 import com.zhanggm.cms.pojo.Channel;
@@ -44,6 +44,9 @@ public class IndexController {
 	private LinkService linkService;
 	/** 定义线程池 **/
 	private ExecutorService executorService = Executors.newFixedThreadPool(5);
+
+	@Autowired
+	private RedisTemplate redisTemplate;
 	
 	/**
 	 * @Title: index   
@@ -153,9 +156,22 @@ public class IndexController {
 	 * @return: String      
 	 * @throws
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/article/detail/{id}.html")
 	public String articleDetail(@PathVariable Integer id,@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,Model model) {
-		Article article = articleService.getById(id);
+		/** 定义缓存的Key **/
+		String cacheKey = "article:"+id;
+		/** 查文章是否在缓存 **/
+		Article article = (Article)redisTemplate.opsForValue().get(cacheKey);
+		/** 如果没有，查询数据，同时缓存到redis **/
+		if(article==null) {
+			article = articleService.getById(id);
+			redisTemplate.opsForValue().set(cacheKey, article);
+			System.out.println("缓存完成");
+		}else {
+			System.out.println("缓存的数据");
+		}
+		
 		User user = userService.getById(article.getUser_id());
 		article.setNickname(user.getNickname());
 		model.addAttribute("article", article);

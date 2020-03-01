@@ -85,6 +85,6 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- basePackage :mapper接口所在的包 -->
 		<property name="basePackage" value="com.zhanggm.cms.dao"></property>
-
 	</bean>
+	<import resource="redis.xml"/>
 </beans>

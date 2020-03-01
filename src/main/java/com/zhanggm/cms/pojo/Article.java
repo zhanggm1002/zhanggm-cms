@@ -1,9 +1,13 @@
 package com.zhanggm.cms.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Article {
-
+public class Article implements Serializable{
+	/**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */
+	private static final long serialVersionUID = 1L;
 	/** 所属栏目 **/
 	private String channel_name;
 	/** 所属分类 **/
