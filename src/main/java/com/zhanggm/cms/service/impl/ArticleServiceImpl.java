@@ -2,8 +2,10 @@ package com.zhanggm.cms.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -28,6 +30,10 @@ public class ArticleServiceImpl implements ArticleService{
 	private CategoryDao categoryDao;
 	@Autowired
 	private UserDao userDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Autowired
+	private RedisTemplate redisTemplate;
 
 	@Override
 	public List<Channel> getChannelAll() {
@@ -105,7 +111,33 @@ public class ArticleServiceImpl implements ArticleService{
 		}
 		return true;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public PageInfo<Article> getHotListByCache(int pageNum, int pageSize){
+		List<Article> list = null;
+		/** 只缓存第一页 **/
+		if(pageNum!=1) {
+			return getHotList(pageNum, pageSize);
+		}
+		/** 设置缓存的Key **/
+		String cacheKey = "hotlist:"+pageNum;
+		/** redis是否已缓存了数据 **/
+		list = ((List<Article>)redisTemplate.opsForValue().get(cacheKey));
+		/** 如果已换成数据，则读redis数据直接返回 **/
+		if(list!=null && list.size()!=0) {
+			System.out.println("从缓存获取热点数据成功");
+			return new PageInfo<Article>(list);
+		}
+		/** 如果未换成数据，则查询数据库，并换成到redis，设置缓存时间 **/
+		PageInfo<Article> pageInfo = getHotList(pageNum, pageSize);
+		/** 设置缓存 **/
+		redisTemplate.opsForValue().set(cacheKey, pageInfo.getList());
+		redisTemplate.expire(cacheKey, 60, TimeUnit.SECONDS);
+		System.out.println("设置缓存数据成功");
+		
+		return pageInfo;
+	}
+	
 	@Override
 	public PageInfo<Article> getHotList(int pageNum, int pageSize) {
 		Article article = new Article();

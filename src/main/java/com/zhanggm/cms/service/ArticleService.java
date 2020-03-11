@@ -159,4 +159,11 @@ public interface ArticleService {
 	 * @throws
 	 */
 	Integer getRandomArticleId();
+	/**
+	 * 带缓存的热点文章
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	PageInfo<Article> getHotListByCache(int pageNum, int pageSize);
 }

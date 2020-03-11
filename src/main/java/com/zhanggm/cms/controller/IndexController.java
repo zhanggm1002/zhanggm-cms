@@ -67,7 +67,7 @@ public class IndexController {
 		List<Slide> slideList = slideService.getAll();
 		model.addAttribute("slideList", slideList);
 		/** 热点文章 **/
-		PageInfo<Article> pageInfo = articleService.getHotList(pageNum,4);
+		PageInfo<Article> pageInfo = articleService.getHotListByCache(pageNum,4);
 		model.addAttribute("pageInfo", pageInfo);
 		/** 最新文章 **/
 		List<Article> newArticleList = articleService.getNewList(6);
