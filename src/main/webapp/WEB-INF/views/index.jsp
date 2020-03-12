@@ -86,6 +86,15 @@
 			<!-- 首页右侧 -->
 			<div class="col-3">
 				<div class="right">
+					<!--  搜索框 -->
+					<div class="card"
+						style="width: 18rem; margin-bottom: 5px; border: 0px;margin-top: 20px;margin-bottom: 20px;">
+						<div class="form-inline">
+							<input type="text" placeholder="请输入要搜索的内容" id="keyword" value="${keyword }" class="form-control"	style="width: 14rem; margin-right: 5px">
+							<button class="btn btn-info" type="button" onclick="search();">搜索</button>
+						</div>
+			
+					</div>
 					<div>最新文章</div>
 					<ul class="list-unstyled">
 						<c:forEach items="${newArticleList }" var="item">
@@ -144,6 +153,10 @@
 				location.href = '/'+channelId+'/'+cateId+'/'+pageNum+'.html';
 			}
 			
+		}
+		
+		function search() {
+			window.open("/search?keyword="+$("#keyword").val());
 		}
 	</script>
 </body>
