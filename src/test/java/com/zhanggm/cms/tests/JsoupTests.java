@@ -14,8 +14,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import com.zhanggm.common.utils.StreamUtil;
 /**
  * 抓取163.com的文章
  *

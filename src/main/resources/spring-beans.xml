@@ -87,4 +87,5 @@
 		<property name="basePackage" value="com.zhanggm.cms.dao"></property>
 	</bean>
 	<import resource="redis.xml"/>
+	<import resource="elasticsearch.xml"/>
 </beans>

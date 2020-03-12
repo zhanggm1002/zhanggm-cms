@@ -18,6 +18,7 @@ import com.zhanggm.cms.pojo.Article;
 import com.zhanggm.cms.pojo.Category;
 import com.zhanggm.cms.pojo.Channel;
 import com.zhanggm.cms.pojo.User;
+import com.zhanggm.cms.respository.ArticleRepositroy;
 import com.zhanggm.cms.service.ArticleService;
 import com.zhanggm.common.utils.RandomUtil;
 @Service
@@ -34,6 +35,8 @@ public class ArticleServiceImpl implements ArticleService{
 	@SuppressWarnings("rawtypes")
 	@Autowired
 	private RedisTemplate redisTemplate;
+	@Autowired
+	private ArticleRepositroy articleRepositroy;
 
 	@Override
 	public List<Channel> getChannelAll() {
@@ -108,6 +111,9 @@ public class ArticleServiceImpl implements ArticleService{
 		String[] idArr = ids.split(",");
 		for(String id:idArr) {
 			deleteById(Integer.parseInt(id));
+			Article article = new Article();
+			article.setId(Integer.parseInt(id));
+			articleRepositroy.delete(article);
 		}
 		return true;
 	}
@@ -120,7 +126,7 @@ public class ArticleServiceImpl implements ArticleService{
 			return getHotList(pageNum, pageSize);
 		}
 		/** 设置缓存的Key **/
-		String cacheKey = "hotlist:"+pageNum;
+		String cacheKey = "1710fhotlist:"+pageNum;
 		/** redis是否已缓存了数据 **/
 		list = ((List<Article>)redisTemplate.opsForValue().get(cacheKey));
 		/** 如果已换成数据，则读redis数据直接返回 **/
@@ -178,7 +184,16 @@ public class ArticleServiceImpl implements ArticleService{
 	public boolean check(Article article) {
 		Article article2 = articleDao.selectById(article.getId());
 		article2.setStatus(article.getStatus());
-		return articleDao.update(article2)>0;
+		boolean result = articleDao.update(article2)>0;
+		/** 审核通过，未删除的文章同步到索引库 **/
+		article = getById(article.getId());
+	    if(article.getStatus()==1 && article.getDeleted()==0) {
+	        articleRepositroy.save(article);
+	    }else {
+	        /** 否则从索引库删除 **/
+	        articleRepositroy.delete(article);
+	    }
+		return result;
 	}
 
 	@Override

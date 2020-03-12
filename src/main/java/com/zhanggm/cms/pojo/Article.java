@@ -3,6 +3,12 @@ package com.zhanggm.cms.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
+@Document(indexName="zhangcms",type="article")
 public class Article implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -17,35 +23,51 @@ public class Article implements Serializable{
 	private String statusStr;
 	
 	
-	/**  **/
+	@Id
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer id;
 	/** 标题 **/
+	@Field(store=true,index=true,type=FieldType.Text,analyzer="ik_smart",searchAnalyzer="ik_smart")
 	private String title;
 	/** 文章内容 **/
+	@Field(store=true,index=true,type=FieldType.Text,analyzer="ik_smart",searchAnalyzer="ik_smart")
 	private String content;
 	/** 标题图片 **/
+	@Field(store=true,index=false,type=FieldType.Text)
 	private String picture;
 	/** 所属栏目 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer channel_id;
 	/** 所属分类 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer category_id;
 	/** 用户Id **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer user_id;
 	/** 点击次数 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer hits;
 	/** 是否热门 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer hot;
 	/** 0：刚发布；2：草稿；1审核通过；-1 审核未通过;3:禁用 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer status;
 	/** 0:正常,1:删除 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer deleted;
 	/** 发布时间 **/
+
+    @Field(store=true,index=false,type=FieldType.Date)
 	private Date created;
 	/** 更新时间 **/
+    @Field(store=true,index=false,type=FieldType.Date)
 	private Date updated;
 	/** 评论数量 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer commentCnt;
 	/** 投诉次数 **/
+	@Field(store=true,index=false,type=FieldType.Integer)
 	private Integer tousuCnt;
 	
 	
