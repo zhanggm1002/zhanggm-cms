@@ -298,6 +298,7 @@
 	</dependencies>
 	<!-- 构建项目 -->
 	<build>
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<!-- mavend 编译插件 -->

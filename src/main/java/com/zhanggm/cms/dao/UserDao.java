@@ -24,7 +24,7 @@ public interface UserDao extends BaseDao<User>{
 	 * @return: List<Integer>      
 	 * @throws
 	 */
-	@Select("SELECT id FROM cms_user WHERE headimg IS NOT NULL AND nickname IS NOT NULL")
+	@Select("SELECT id FROM cms_user WHERE nickname IS NOT NULL")
 	List<Integer> selectIdList();
 
 }
