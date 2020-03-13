@@ -88,4 +88,6 @@
 	</bean>
 	<import resource="redis.xml"/>
 	<import resource="elasticsearch.xml"/>
+	<import resource="kafka-producer.xml"/>
+	<import resource="kafka-consumer.xml"/>
 </beans>

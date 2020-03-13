@@ -48,8 +48,6 @@
 					</c:forEach>
 				</div>
 				<%-- ${pageInfo } --%>
-				<!-- 分页 -->
-				<jsp:include page="./common/page.jsp"></jsp:include>
 			</div>
 			<!-- 首页右侧 -->
 			<div class="col-3">
@@ -57,6 +55,29 @@
 			</div>
 
 		</div>
+		<!-- 分页 -->
+				<nav class="offset-2">
+				<ul class="pagination">
+					<c:if test="${pageInfo.hasPreviousPage }">
+						<li class="page-item"><a class="page-link" href="javascript:gotoPage('${pageInfo.pageNum-1 }');">上一页</a></li>
+					</c:if>
+					
+					<c:forEach items="${pageInfo.navigatepageNums }" var="item">
+						<c:if test="${item>pageInfo.pageNum-5 &&  item<pageInfo.pageNum+5}">
+							<c:if test="${pageInfo.pageNum==item }">
+								<li class="page-item active"><a class="page-link" href="javascript:gotoPage('${item}');">${item }</a></li>
+							</c:if>
+							<c:if test="${pageInfo.pageNum!=item }">
+								<li class="page-item"><a class="page-link" href="javascript:gotoPage('${item}');">${item }</a></li>
+							</c:if>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${pageInfo.hasNextPage }">
+						<li class="page-item"><a class="page-link" href="javascript:gotoPage('${pageInfo.pageNum+1 }');">下一页</a></li>
+					</c:if>
+				</ul>
+			</nav>
 		<div class="col-10 offset-1 breadcrumb" style="margin-bottom: 200px;">
 			友情链接：
 			<c:forEach items="${linkList }" var="item">

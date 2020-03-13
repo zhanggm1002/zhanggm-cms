@@ -35,15 +35,16 @@ public class ArticleToIndex {
 			Article article = new Article();
 			article.setStatus(1);
 			article.setDeleted(0);
-			PageInfo<Article> pageInfo = articleService.getPageInfo(article, pageNum, 10);
+			PageInfo<Article> pageInfo = articleService.getPageInfo(article, pageNum, 100);
 			/** 文章读取完成，结束循环，退出测试 **/
 			if(pageInfo==null || pageInfo.getList().size()==0) {
 				break;
 			}
 			/** 同步到索引库 **/
-			for(Article a : pageInfo.getList()) {
+			articleRepositroy.saveAll(pageInfo.getList());
+			/*for(Article a : pageInfo.getList()) {
 				articleRepositroy.save(a);
-			}
+			}*/
 		}
 		
 		

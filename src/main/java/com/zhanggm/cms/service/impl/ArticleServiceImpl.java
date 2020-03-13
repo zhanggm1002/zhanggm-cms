@@ -239,4 +239,18 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleIdList.get(random);
 	}
 
+	@Override
+	public Integer getRandomChannelId() {
+		List<Integer> channelIdList = channelDao.selectIdList();
+		int random = RandomUtil.random(0, channelIdList.size()-1);
+		return channelIdList.get(random);
+	}
+
+	@Override
+	public Integer getRandomCateId(Integer channelId) {
+		List<Integer> cateIdList = categoryDao.selectIdList(channelId);
+		int random = RandomUtil.random(0, cateIdList.size()-1);
+		return cateIdList.get(random);
+	}
+
 }
